@@ -37,6 +37,16 @@ public interface CalculatorListener extends ParseTreeListener {
 	 */
 	void exitPowExpression(CalculatorParser.PowExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(CalculatorParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(CalculatorParser.FunctionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CalculatorParser#floatExpression}.
 	 * @param ctx the parse tree
 	 */
@@ -46,4 +56,14 @@ public interface CalculatorListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFloatExpression(CalculatorParser.FloatExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CalculatorParser#funcname}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncname(CalculatorParser.FuncnameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CalculatorParser#funcname}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncname(CalculatorParser.FuncnameContext ctx);
 }
