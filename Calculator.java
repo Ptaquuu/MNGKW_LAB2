@@ -30,6 +30,7 @@ public class Calculator extends CalculatorBaseListener {
 
     @Override
     public void exitMultiExpression(CalculatorParser.MultiExpressionContext ctx) {
+
         Double result = firstStack.removeLast();
          for (int i = ctx.getChildCount() - 2; i >= 1; i = i - 2) {
             if (symbolEquals(ctx.getChild(i), CalculatorParser.TIMES)) {
@@ -46,13 +47,14 @@ public class Calculator extends CalculatorBaseListener {
 
     @Override
     public void exitPowExpression(CalculatorParser.PowExpressionContext ctx) {
+
         Double result = firstStack.removeLast();
         for (int i = ctx.getChildCount() - 2; i >= 1; i = i - 2) {
             if (symbolEquals(ctx.getChild(i), CalculatorParser.POW)) {
                 result = Math.pow( firstStack.removeLast(),result);
             }
             else{
-                result = Math.pow( 1/ firstStack.removeLast(),result);
+                result = Math.pow(result, 1/ firstStack.removeLast());
             }
 
         }
@@ -61,6 +63,7 @@ public class Calculator extends CalculatorBaseListener {
     }
     @Override
     public void exitFunction(CalculatorParser.FunctionContext ctx){
+
         double result = firstStack.pop();
         if(ctx.funcname()!=null) {
             for (int i = ctx.getChildCount(); i >= 1; i = i - 2) {
@@ -79,7 +82,6 @@ public class Calculator extends CalculatorBaseListener {
         System.out.println("Expression: \"" + ctx.getText() + "\" -> "+result);
         firstStack.push(result);
 
-
     }
 
     private boolean symbolEquals(ParseTree child, int symbol) {
@@ -88,6 +90,7 @@ public class Calculator extends CalculatorBaseListener {
 
     @Override
     public void exitFloatExpression(CalculatorParser.FloatExpressionContext ctx) {
+
         double value = Integer.parseInt(ctx.NUMBER().getText());
         if (ctx.MINUS() != null) {
             firstStack.push(-1 * value);
@@ -98,6 +101,7 @@ public class Calculator extends CalculatorBaseListener {
     }
 
     public static Double calc(CharStream charStream) {
+
         CalculatorLexer lexer = new CalculatorLexer(charStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         System.out.println(tokens.getText());
@@ -112,6 +116,7 @@ public class Calculator extends CalculatorBaseListener {
     }
 
     public static void main(String[] args) throws Exception {
+
         CharStream charStreams = CharStreams.fromFileName(".\\example.txt");
         Double result = calc(charStreams);
         System.out.println("Result = " + result);
